@@ -33,9 +33,9 @@
 ## Conditional Variable \[CV\]
 > [`std::condition_variable`](https://en.cppreference.com/w/cpp/thread/condition_variable) \
 > No BDE equivalent
-- *"A notifiable light bulb checker with a timeout"*
-- Works on top of a boolean predicate `P` protected by the mutex `M`.
-- `bool wait_until(mutex M, time_point T, predicate P)` atomically releases `M`, and blocks the current thread.
+- *"A poker application which notifies sleeping players to join a poker table whenever a fish shows up.  Spurious wakeup occurs when a player is notified but the table is already full; the player should go back to sleep until next nofity.  If time `T` has passed, player gets impatient and joins a table anyway."*
+- Works on top of a boolean predicate `P` protected by the mutex `M`, such that multiple consumers waking up at the same time won't have race condition on `P`.
+- `bool wait_until(mutex M, time_point T, predicate P)` atomically releases `M`, and blocks the current thread until time `T` or notified.
 - `notify_one()` and `notify_all()` notify one or all blocked threads respectively.
 - When the CV is notified before time `T`, check `P`. If `P == true`, reacquire `M` and continue execution. If `P == false`, block again.
 - If time `T` is reached, `wait_until()` returns `P`. Finally, continue execution.
