@@ -46,7 +46,7 @@ In below examples, `T1` always attempts to push a message first, but `T2` always
     {
         node<T>* thread_ptr = new node<T>(val);
         node<T>* old_ptr = thread_ptr;
-        thread_ptr.exchange(head_ptr);
+        head_ptr = thread_ptr.exchange(head_ptr);
         old_ptr->next = *thread_ptr;
     }
 ```
