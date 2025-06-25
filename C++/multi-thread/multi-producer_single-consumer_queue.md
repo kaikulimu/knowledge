@@ -76,4 +76,8 @@ T2: head_ptr -> (M5) -> (M4)
 queue: head_ptr -> (M5) -> (M4) -> (M3) -> (M2) -> (M1)
 ```
 
-- *Key Insight*: In Approach 2, we link new head to existing head **before exchange**, which might fail. In Approach 3, we link new head to existing head **after exchange**, which *always* succeeds.
+- *Observation*: In Approach 2, we link new head to existing head **before exchange**, which might fail. In Approach 3, we link new head to existing head **after exchange**, which *always* succeeds.
+
+## Key Insight
+**"Order fast, work slow."** is the fundamental reason why Approach 3 is superior. In Approach 3, we determine the order `(M5) -> (M4) -> ...` quickly before doing the "work" of linking the nodes together. In Approach 2, we did some potentially wasteful "work" of linking nodes before determing the order -- hence a link could be deprecated.
+
